@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "j4mTSdlZemjZGfIGY+0RyLcnAwqH3388E7+usECJvVU=",
+  "Source": "SistemaAPIRest",
+  "BasePath": "_content/SistemaAPIRest",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
