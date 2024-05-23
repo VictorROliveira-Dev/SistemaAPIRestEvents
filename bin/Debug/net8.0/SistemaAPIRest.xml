@@ -20,18 +20,18 @@
             <response code="200">Sucesso</response>
             <response code="404">Evento não encontrado</response>
         </member>
-        <member name="M:SistemaAPIRest.Controllers.EventsController.Post(SistemaAPIRest.Entities.Event)">
+        <member name="M:SistemaAPIRest.Controllers.EventsController.Post(SistemaAPIRest.Models.EventInputModel)">
             <summary>
             Cadastrar um evento
             </summary>
             <remarks>
             {"title":"string","description":"string","startDate":"2023-02-27T17:59:14.141Z","endDate":"2023-02-27T17:59:14.141Z"}
             </remarks>
-            <param name="evento">Dados do evento</param>
+            <param name="eventInputModel">Dados do evento</param>
             <returns>Objeto evento recém-criado</returns>
             <response code="201">Sucesso</response>
         </member>
-        <member name="M:SistemaAPIRest.Controllers.EventsController.Update(System.Guid,SistemaAPIRest.Entities.Event)">
+        <member name="M:SistemaAPIRest.Controllers.EventsController.Update(System.Guid,SistemaAPIRest.Models.EventInputModel)">
             <summary>
             Atualizar um evento
             </summary>
@@ -39,7 +39,7 @@
             {"title":"string","description":"string","startDate":"2023-02-27T17:59:14.141Z","endDate":"2023-02-27T17:59:14.141Z"}
             </remarks>
             <param name="eventId">Identificado do evento</param>
-            <param name="evento">Dados do evento</param>
+            <param name="eventInputModel">Dados do evento</param>
             <returns>Contéudo vazio.</returns>
             <response code="204">Sucesso</response>
             <response code="404">Evento não encontrado</response>
@@ -53,14 +53,14 @@
             <response code="204">Sucesso</response>
             <response code="404">Evento não encontrado</response>
         </member>
-        <member name="M:SistemaAPIRest.Controllers.EventsController.PostSpeaker(SistemaAPIRest.Entities.EventSpeaker,System.Guid)">
+        <member name="M:SistemaAPIRest.Controllers.EventsController.PostSpeaker(SistemaAPIRest.Models.EventSpeakerInputModel,System.Guid)">
             <summary>
             Cadastrar palestrante
             </summary>
             <remarks>
             {"name":"string","talkTitle":"string","talkDescription":"string","linkedInProfile":"string"}
             </remarks>
-            <param name="speaker">Dados do palestrante</param>
+            <param name="speakerInpuModel">Dados do palestrante</param>
             <param name="eventId">Identificador do evento</param>
             <returns>Conteúdo vazio</returns>
             <response code="204">Sucesso</response>

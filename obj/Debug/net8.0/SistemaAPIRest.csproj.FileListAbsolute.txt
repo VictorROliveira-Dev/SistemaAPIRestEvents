@@ -138,3 +138,5 @@ C:\Users\victo\source\repos\SistemaAPIRest\SistemaAPIRest\bin\Debug\net8.0\runti
 C:\Users\victo\source\repos\SistemaAPIRest\SistemaAPIRest\obj\Debug\net8.0\SistemaAPIRest.sourcelink.json
 C:\Users\victo\source\repos\SistemaAPIRest\SistemaAPIRest\bin\Debug\net8.0\SistemaAPIRest.xml
 C:\Users\victo\source\repos\SistemaAPIRest\SistemaAPIRest\obj\Debug\net8.0\SistemaAPIRest.xml
+C:\Users\victo\source\repos\SistemaAPIRest\SistemaAPIRest\bin\Debug\net8.0\AutoMapper.dll
+C:\Users\victo\source\repos\SistemaAPIRest\SistemaAPIRest\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

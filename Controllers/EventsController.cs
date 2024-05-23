@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SistemaAPIRest.Entities;
+using SistemaAPIRest.Models;
 using SistemaAPIRest.Persistence;
 
 namespace SistemaAPIRest.Controllers;
@@ -11,10 +13,12 @@ namespace SistemaAPIRest.Controllers;
 public class EventsController : ControllerBase
 {
     private readonly EventDbContext _eventDbContext;
+    private readonly IMapper _mapper;
 
-    public EventsController(EventDbContext eventDbContext)
+    public EventsController(EventDbContext eventDbContext, IMapper mapper)
     {
         _eventDbContext = eventDbContext;
+        _mapper = mapper;
     }
 
     /// <summary>
@@ -29,7 +33,9 @@ public class EventsController : ControllerBase
         var Events = _eventDbContext.Events
                                     .Include(es => es.Speakers)
                                     .Where(e => !e.IsDeleted).ToList();
-        return Ok(Events);
+        
+        var viewModel = _mapper.Map<List<EventViewModel>>(Events);
+        return Ok(viewModel);
     }
 
     /// <summary>
@@ -52,7 +58,8 @@ public class EventsController : ControllerBase
             return NotFound();
         }
 
-        return Ok(Event);
+        var viewModel = _mapper.Map<EventViewModel>(Event);
+        return Ok(viewModel);
     }
 
     /// <summary>
@@ -61,17 +68,19 @@ public class EventsController : ControllerBase
     /// <remarks>
     /// {"title":"string","description":"string","startDate":"2023-02-27T17:59:14.141Z","endDate":"2023-02-27T17:59:14.141Z"}
     /// </remarks>
-    /// <param name="evento">Dados do evento</param>
+    /// <param name="eventInputModel">Dados do evento</param>
     /// <returns>Objeto evento recém-criado</returns>
     /// <response code="201">Sucesso</response>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public IActionResult Post(Event evento)
+    public IActionResult Post(EventInputModel eventInputModel)
     {
-        _eventDbContext.Events.Add(evento);
+        var Event = _mapper.Map<Event>(eventInputModel);
+
+        _eventDbContext.Events.Add(Event);
         _eventDbContext.SaveChanges();
 
-        return CreatedAtAction(nameof(GetById), new { eventId = evento.Id }, evento);
+        return CreatedAtAction(nameof(GetById), new { eventId = Event.Id }, Event);
     }
 
     /// <summary>
@@ -81,14 +90,14 @@ public class EventsController : ControllerBase
     /// {"title":"string","description":"string","startDate":"2023-02-27T17:59:14.141Z","endDate":"2023-02-27T17:59:14.141Z"}
     /// </remarks>
     /// <param name="eventId">Identificado do evento</param>
-    /// <param name="evento">Dados do evento</param>
+    /// <param name="eventInputModel">Dados do evento</param>
     /// <returns>Contéudo vazio.</returns>
     /// <response code="204">Sucesso</response>
     /// <response code="404">Evento não encontrado</response>
     [HttpPut("{eventId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public IActionResult Update(Guid eventId, Event evento)
+    public IActionResult Update(Guid eventId, EventInputModel eventInputModel)
     {
         var Event = _eventDbContext.Events.SingleOrDefault(e => e.Id == eventId);
 
@@ -97,7 +106,7 @@ public class EventsController : ControllerBase
             return NotFound();
         }
 
-        Event.Update(evento.Title, evento.Description, evento.CreatedDate, evento.EndDate);
+        Event.Update(eventInputModel.Title, eventInputModel.Description, eventInputModel.CreatedDate, eventInputModel.EndDate);
         _eventDbContext.Events.Update(Event);
         _eventDbContext.SaveChanges();
 
@@ -135,7 +144,7 @@ public class EventsController : ControllerBase
     /// <remarks>
     /// {"name":"string","talkTitle":"string","talkDescription":"string","linkedInProfile":"string"}
     /// </remarks>
-    /// <param name="speaker">Dados do palestrante</param>
+    /// <param name="speakerInpuModel">Dados do palestrante</param>
     /// <param name="eventId">Identificador do evento</param>
     /// <returns>Conteúdo vazio</returns>
     /// <response code="204">Sucesso</response>
@@ -143,8 +152,10 @@ public class EventsController : ControllerBase
     [HttpPost("{eventId}/speakers")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public IActionResult PostSpeaker(EventSpeaker speaker, Guid eventId)
+    public IActionResult PostSpeaker(EventSpeakerInputModel speakerInpuModel, Guid eventId)
     {
+        var speaker = _mapper.Map<EventSpeaker>(speakerInpuModel);
+        
         speaker.EventSpeakerId = eventId;
         var Event = _eventDbContext.Events.Any(e => e.Id == eventId);
 

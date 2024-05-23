@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using SistemaAPIRest.Mappers;
 using SistemaAPIRest.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,8 @@ builder.Services.AddDbContext<EventDbContext>(options =>
 {
     options.UseSqlServer(connectionString);
 });
+// Configurando automapper.
+builder.Services.AddAutoMapper(typeof(EventProfile));
 
 // Usando armazenamento em memória:
 //builder.Services.AddDbContext<EventDbContext>(e => e.UseInMemoryDatabase("EventsDb"));
