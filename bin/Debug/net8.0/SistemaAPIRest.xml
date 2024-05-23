@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SistemaAPIRest</name>
+    </assembly>
+    <members>
+        <member name="M:SistemaAPIRest.Controllers.EventsController.GetAll">
+            <summary>
+            Obter todos os eventos
+            </summary>
+            <returns>Coleção de eventos</returns>
+            <response code="200">Sucesso</response>
+        </member>
+        <member name="M:SistemaAPIRest.Controllers.EventsController.GetById(System.Guid)">
+            <summary>
+            Retorna um evento baseado no ID passado
+            </summary>
+            <param name="eventId">Identificado do evento</param>
+            <returns>Dados de um evento específico</returns>
+            <response code="200">Sucesso</response>
+            <response code="404">Evento não encontrado</response>
+        </member>
+        <member name="M:SistemaAPIRest.Controllers.EventsController.Post(SistemaAPIRest.Entities.Event)">
+            <summary>
+            Cadastrar um evento
+            </summary>
+            <remarks>
+            {"title":"string","description":"string","startDate":"2023-02-27T17:59:14.141Z","endDate":"2023-02-27T17:59:14.141Z"}
+            </remarks>
+            <param name="evento">Dados do evento</param>
+            <returns>Objeto evento recém-criado</returns>
+            <response code="201">Sucesso</response>
+        </member>
+        <member name="M:SistemaAPIRest.Controllers.EventsController.Update(System.Guid,SistemaAPIRest.Entities.Event)">
+            <summary>
+            Atualizar um evento
+            </summary>
+            <remarks>
+            {"title":"string","description":"string","startDate":"2023-02-27T17:59:14.141Z","endDate":"2023-02-27T17:59:14.141Z"}
+            </remarks>
+            <param name="eventId">Identificado do evento</param>
+            <param name="evento">Dados do evento</param>
+            <returns>Contéudo vazio.</returns>
+            <response code="204">Sucesso</response>
+            <response code="404">Evento não encontrado</response>
+        </member>
+        <member name="M:SistemaAPIRest.Controllers.EventsController.Delete(System.Guid)">
+            <summary>
+            Excluir um evento
+            </summary>
+            <param name="eventId">Identificador de evento</param>
+            <returns>Conteúdo vazio</returns>
+            <response code="204">Sucesso</response>
+            <response code="404">Evento não encontrado</response>
+        </member>
+        <member name="M:SistemaAPIRest.Controllers.EventsController.PostSpeaker(SistemaAPIRest.Entities.EventSpeaker,System.Guid)">
+            <summary>
+            Cadastrar palestrante
+            </summary>
+            <remarks>
+            {"name":"string","talkTitle":"string","talkDescription":"string","linkedInProfile":"string"}
+            </remarks>
+            <param name="speaker">Dados do palestrante</param>
+            <param name="eventId">Identificador do evento</param>
+            <returns>Conteúdo vazio</returns>
+            <response code="204">Sucesso</response>
+            <response code="404">Evento não encontrado</response>
+        </member>
+        <member name="T:SistemaAPIRest.Persistence.Migrations.InitialMigration">
+            <inheritdoc />
+        </member>
+        <member name="M:SistemaAPIRest.Persistence.Migrations.InitialMigration.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:SistemaAPIRest.Persistence.Migrations.InitialMigration.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:SistemaAPIRest.Persistence.Migrations.InitialMigration.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>
