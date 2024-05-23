@@ -1,10 +1,17 @@
+using Microsoft.EntityFrameworkCore;
 using SistemaAPIRest.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var connectionString = builder.Configuration.GetConnectionString("EventsCs");
+builder.Services.AddDbContext<EventDbContext>(options =>
+{
+    options.UseSqlServer(connectionString);
+});
 
-builder.Services.AddSingleton<EventDbContext>();
+// Usando armazenamento em memória:
+//builder.Services.AddDbContext<EventDbContext>(e => e.UseInMemoryDatabase("EventsDb"));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
